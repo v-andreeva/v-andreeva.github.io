@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+
+		<title>Ajax quest challenge</title>
+
+		<style></style>
+	</head>
+
+	<body>
+		<section class="section">
+			<div class="container">
+				<h1 class="title">Simpson API</h1>
+
+				<div class="content" id="quote"></div>
+			</div>
+		</section>
+
+		<!-- We need to load axios first! -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+			integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs="
+			crossorigin="anonymous"
+		></script>
+		<script>
+            function fetchQuoteJSON() {
+
+            const url = 'https://simpsons-quotes-api.herokuapp.com/quotes';
+            axios.get(url)
+            .then(function(response) {
+                return response.data; 
+             })
+            .then(function(data) {
+                console.log(data);
+
+                const quoteHtml = `
+                <h1>${data[0].character} :</h1>
+                <div style='display:flex; justify-content:center;'>
+                    <p>${data[0].quote}</p>
+                    <img src=${data[0].image} alt="${data[0].character}" style="width:200px;"/>
+                </div>
+              `;
+             document.querySelector('#quote').innerHTML = quoteHtml;
+             });
+            }
+            
+            fetchQuoteJSON();
+            
+
+        </script>
+	</body>
+</html>
